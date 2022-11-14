@@ -1,0 +1,30 @@
+
+/* 边栏小组件 */
+#aside-content .card-widget{
+    background: rgba(255,255,255,.9);
+}
+
+/* 主页-最近发布 */
+#recent-posts > .recent-post-item{
+    background: rgba(255,255,255,.9);
+}
+
+/* 归档页面 */
+#archive {
+    background: rgba(255,255,255,.9);
+}
+
+/* 文章页面 */
+#post {
+    background: rgba(255,255,255,.9);
+}
+
+/* 标签、分类、图库、追番、友情链接、留言板、关于我等创建的page页面 */
+#page {
+    background: rgba(255,255,255,.9);
+}
+
+/* 搜索框 */
+.search-dialog{
+    background: rgba(255,255,255,.9);
+}
