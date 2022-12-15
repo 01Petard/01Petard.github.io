@@ -6,7 +6,7 @@
   <link href="https://01petard.github.io/atom.xml" rel="self"/>
   
   <link href="https://01petard.github.io/"/>
-  <updated>2022-11-14T09:23:48.866Z</updated>
+  <updated>2022-12-15T12:57:21.187Z</updated>
   <id>https://01petard.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows批量删除._开头的MacOS文件</title>
+    <link href="https://01petard.github.io/2022/12/15/Windows%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4._%E5%BC%80%E5%A4%B4%E7%9A%84MacOS%E6%96%87%E4%BB%B6/"/>
+    <id>https://01petard.github.io/2022/12/15/Windows%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4._%E5%BC%80%E5%A4%B4%E7%9A%84MacOS%E6%96%87%E4%BB%B6/</id>
+    <published>2022-12-15T12:44:15.000Z</published>
+    <updated>2022-12-15T12:57:21.187Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>博主将文件从MacOS拷贝到Windows时，经常会遇到有很多.DS_Store和._的文件，这些在MacOS里用来保存类型和创建者代码、修改日期、图标等信息的。</p><p>但是MacOS因为有一个孪生文件系统：数据分叉和资源分叉，所以不会显示，而Windows只有一个数据分支。所以Windows用户会看到这些文件，这些文件不仅看着烦，而且占屏幕空间，所以最好删了。</p><p>下面介绍一下方法，用Windows自带的<strong>命令行</strong>就行。</p><blockquote><p>列出当前目录及所有子目录所有以._开头的文件</p></blockquote><pre><code>del ._* /a/s</code></pre><blockquote><p>删除当前目录及所有子目录所有以._开头的文件</p></blockquote><pre><code>del ._* /a/s</code></pre><p><strong>警告：不要直接用.*删除，因为你可能误删一些重要文件，比如：.gitignore等文件</strong></p><p>大功告成！再也没有那些烦人的文件了，文件夹一下子变得清爽了很多。</p>]]></content>
+    
+    
+    <summary type="html">一种批量删除.DS_Store和._文件的办法</summary>
+    
+    
+    
+    <category term="软件" scheme="https://01petard.github.io/categories/%E8%BD%AF%E4%BB%B6/"/>
+    
+    
+    <category term="Windows" scheme="https://01petard.github.io/tags/Windows/"/>
+    
+    <category term="MacOS" scheme="https://01petard.github.io/tags/MacOS/"/>
+    
+    <category term=".DS_Store" scheme="https://01petard.github.io/tags/DS-Store/"/>
+    
+    <category term="._" scheme="https://01petard.github.io/tags/"/>
+    
+  </entry>
   
   <entry>
     <title>2022年11月记录</title>
@@ -481,29 +508,6 @@
     <category term="Idea" scheme="https://01petard.github.io/tags/Idea/"/>
     
     <category term="破解" scheme="https://01petard.github.io/tags/%E7%A0%B4%E8%A7%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac上PD17虚拟机终端启动命令</title>
-    <link href="https://01petard.github.io/2022/08/07/Mac%E4%B8%8APD17%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%88%E7%AB%AF%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4/"/>
-    <id>https://01petard.github.io/2022/08/07/Mac%E4%B8%8APD17%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%88%E7%AB%AF%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4/</id>
-    <published>2022-08-07T08:01:15.000Z</published>
-    <updated>2022-08-07T08:04:09.581Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>pd17虚拟机启动命令</strong><br>prlctl start ‘Windows 11’<br>prlctl start ‘Ubuntu 20.04.3’</p><p>快捷工具<br>PD_START V2.0（支持PD17.1.1）<br><a href="https://wwi.lanzouo.com/b0114r70b">https://wwi.lanzouo.com/b0114r70b</a><br>密码:Cc</p>]]></content>
-    
-    
-    <summary type="html">Mac上跳过PD检测启动虚拟机的方法</summary>
-    
-    
-    
-    <category term="软件" scheme="https://01petard.github.io/categories/%E8%BD%AF%E4%BB%B6/"/>
-    
-    
-    <category term="PD虚拟机" scheme="https://01petard.github.io/tags/PD%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
-    
-    <category term="Mac" scheme="https://01petard.github.io/tags/Mac/"/>
     
   </entry>
   
