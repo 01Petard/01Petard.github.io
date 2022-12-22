@@ -6,7 +6,7 @@
   <link href="https://01petard.github.io/atom.xml" rel="self"/>
   
   <link href="https://01petard.github.io/"/>
-  <updated>2022-12-15T13:10:17.233Z</updated>
+  <updated>2022-12-22T05:28:19.963Z</updated>
   <id>https://01petard.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2022年12月记录</title>
+    <link href="https://01petard.github.io/2022/12/22/2022%E5%B9%B412%E6%9C%88%E8%AE%B0%E5%BD%95/"/>
+    <id>https://01petard.github.io/2022/12/22/2022%E5%B9%B412%E6%9C%88%E8%AE%B0%E5%BD%95/</id>
+    <published>2022-12-22T05:06:15.000Z</published>
+    <updated>2022-12-22T05:28:19.963Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>12月，cn突然放开了疫情管控，这下直接就什么都不管了，结果现在本鼠鼠也被学校赶回家“被迫”线上学习了，还好回家了老师也不会管得很紧了，回到乡下真的治好了我的精神内耗……</p><p>但是很不巧，前几天和老弟去城里看了趟阿凡达2就中了，也不知道在哪感染的，老弟反而没事，晕，难道是本鼠鼠抵抗力差嘛555555</p><p>现在就在家每天玩游戏等死，然后养病，日志也随便乱写应付了。回顾这三年，感觉当初如果直接就业，现在估计已经混得很好了，疫情三年又三年，等到毕业真的能迎来春天吗，唉……</p><p>又是悲观慢慢的一天呢！不过好在我还是找回了以前的精神支柱——游戏，要说我今年最后悔的事情就是用Mac做深度，那最不后悔的事情就是买了台switch，熟悉啊真的很熟悉，当初那种快乐的感觉。实验室有很多师兄师姐明明一整天都呆在实验室，但是却有五六个人买了switch，为什么呢我也不知道，大概这就是到了一个年纪后心照不宣的选择吧，我感觉自己真的一天天老了，虽然我还……不到23岁。。。看着自己的年龄年复一年地增加，但是内心还是感觉自己是个孩子啊……</p>]]></content>
+    
+    
+    <summary type="html">更坏的时代来临了……</summary>
+    
+    
+    
+    <category term="其他" scheme="https://01petard.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+    <category term="研究生" scheme="https://01petard.github.io/tags/%E7%A0%94%E7%A9%B6%E7%94%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>Windows批量删除._开头的MacOS文件</title>
@@ -483,31 +504,6 @@
     <category term="番剧" scheme="https://01petard.github.io/tags/%E7%95%AA%E5%89%A7/"/>
     
     <category term="7月" scheme="https://01petard.github.io/tags/7%E6%9C%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JetBrains全家桶破解</title>
-    <link href="https://01petard.github.io/2022/08/07/JetBrains%E5%85%A8%E5%AE%B6%E6%A1%B6%E7%A0%B4%E8%A7%A3/"/>
-    <id>https://01petard.github.io/2022/08/07/JetBrains%E5%85%A8%E5%AE%B6%E6%A1%B6%E7%A0%B4%E8%A7%A3/</id>
-    <published>2022-08-07T09:00:15.000Z</published>
-    <updated>2022-08-11T06:50:08.182Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>参考网址：</p><blockquote><p><a href="https://www.macwk.com/article/jetbrains-crack">JetBrains全系列软件激活教程激活码以及JetBrains系列软件汉化包 (macwk.com)</a></p></blockquote><p>无限激活方式：</p><ol><li><p><a href="https://www.jetbrains.com/">JetBrains官网</a> 下载安装你需要的 IDE，如果下载慢可以在 <a href="[MacWk - 精品mac软件下载](https://www.macwk.com/)">MacWk</a> 搜索 jetbrains。</p></li><li><p>下载 <a href="https://macwk.lanzouo.com/i8eElxh573a">Jetbrains.zip</a>，下载后解压，得到 fineagent.jar，将该文件复制到 <code>/Users/你的用户名/</code> 文件夹下</p></li><li><p>打开访达，点击左侧的 <code>应用程序</code> 找到 <code>WebStorm</code>，在 WebStorm 图标上右键，点击 <code>显示包内容</code></p></li><li><p>进入 <code>Contents</code> 目录，再进入 <code>bin</code> 目录，使用文本编辑器打开 <code>webstorm.vmoptions</code> 文件</p></li><li><p>在最后面添加 <code>-javaagent:/Users/你的用户名/fineagent.jar</code>，记得修改一下你的用户名。</p></li><li><p>运行 WebStorm, 选择 <code>Activate WebStorm</code>，再点击 <code>Activation Code</code></p></li><li><p>复制下面的的激活码粘贴到激活窗口的输入框中，点击 <code>Activate</code>。可以用到 2099 年！</p></li></ol><p>5AYV1D1RE5-eyJsaWNlbnNlSWQiOiI1QVlWMUQxUkU1IiwibGljZW5zZWVOYW1lIjoiaHR0cHM6Ly93d3cuaml3ZWljaGVuZ3podS5jb20iLCJhc3NpZ25lZU5hbWUiOiIiLCJhc3NpZ25lZUVtYWlsIjoiIiwibGljZW5zZVJlc3RyaWN0aW9uIjoiIiwiY2hlY2tDb25jdXJyZW50VXNlIjpmYWxzZSwicHJvZHVjdHMiOlt7ImNvZGUiOiJJSSIsImZhbGxiYWNrRGF0ZSI6IjIwOTktMTItMzEiLCJwYWlkVXBUbyI6IjIwOTktMTItMzEifSx7ImNvZGUiOiJBQyIsImZhbGxiYWNrRGF0ZSI6IjIwOTktMTItMzEiLCJwYWlkVXBUbyI6IjIwOTktMTItMzEifSx7ImNvZGUiOiJEUE4iLCJmYWxsYmFja0RhdGUiOiIyMDk5LTEyLTMxIiwicGFpZFVwVG8iOiIyMDk5LTEyLTMxIn0seyJjb2RlIjoiUFMiLCJmYWxsYmFja0RhdGUiOiIyMDk5LTEyLTMxIiwicGFpZFVwVG8iOiIyMDk5LTEyLTMxIn0seyJjb2RlIjoiR08iLCJmYWxsYmFja0RhdGUiOiIyMDk5LTEyLTMxIiwicGFpZFVwVG8iOiIyMDk5LTEyLTMxIn0seyJjb2RlIjoiRE0iLCJmYWxsYmFja0RhdGUiOiIyMDk5LTEyLTMxIiwicGFpZFVwVG8iOiIyMDk5LTEyLTMxIn0seyJjb2RlIjoiQ0wiLCJmYWxsYmFja0RhdGUiOiIyMDk5LTEyLTMxIiwicGFpZFVwVG8iOiIyMDk5LTEyLTMxIn0seyJjb2RlIjoiUlMwIiwiZmFsbGJhY2tEYXRlIjoiMjA5OS0xMi0zMSIsInBhaWRVcFRvIjoiMjA5OS0xMi0zMSJ9LHsiY29kZSI6IlJDIiwiZmFsbGJhY2tEYXRlIjoiMjA5OS0xMi0zMSIsInBhaWRVcFRvIjoiMjA5OS0xMi0zMSJ9LHsiY29kZSI6IlJEIiwiZmFsbGJhY2tEYXRlIjoiMjA5OS0xMi0zMSIsInBhaWRVcFRvIjoiMjA5OS0xMi0zMSJ9LHsiY29kZSI6IlBDIiwiZmFsbGJhY2tEYXRlIjoiMjA5OS0xMi0zMSIsInBhaWRVcFRvIjoiMjA5OS0xMi0zMSJ9LHsiY29kZSI6IlJNIiwiZmFsbGJhY2tEYXRlIjoiMjA5OS0xMi0zMSIsInBhaWRVcFRvIjoiMjA5OS0xMi0zMSJ9LHsiY29kZSI6IldTIiwiZmFsbGJhY2tEYXRlIjoiMjA5OS0xMi0zMSIsInBhaWRVcFRvIjoiMjA5OS0xMi0zMSJ9LHsiY29kZSI6IkRCIiwiZmFsbGJhY2tEYXRlIjoiMjA5OS0xMi0zMSIsInBhaWRVcFRvIjoiMjA5OS0xMi0zMSJ9LHsiY29kZSI6IkRDIiwiZmFsbGJhY2tEYXRlIjoiMjA5OS0xMi0zMSIsInBhaWRVcFRvIjoiMjA5OS0xMi0zMSJ9LHsiY29kZSI6IlJTVSIsImZhbGxiYWNrRGF0ZSI6IjIwOTktMTItMzEiLCJwYWlkVXBUbyI6IjIwOTktMTItMzEifV0sImhhc2giOiIxMjc5Njg3Ny8wIiwiZ3JhY2VQZXJpb2REYXlzIjo3LCJhdXRvUHJvbG9uZ2F0ZWQiOmZhbHNlLCJpc0F1dG9Qcm9sb25nYXRlZCI6ZmFsc2V9-HNPogO0kWkHCVMnsjmBXUqQt87UPHqdkYqZGveSJtu8hb2V2Yq7gHsHenp4UuEd3jwEwC+YrUIf7U5yDA&#x2F;56F5Sdn0RLUHZX5DHeQbJPbmYCBsDRT7m8rnmMFOSZn3vwNatvv1cooZbcGOk3Wwxx6bF7XcgaIrmXRcmZMZgv2PZehr0WS1HxNKe3X4nbGP3MwiSbg4ypmxNDrljmgv+Si9QDDwNLDffqeO0Lce0FqEJuMWmvBS42S0aeIYF8IS5bp4+LFKLJ8T7tF40OxKYDurBb9+9c43GZBscM&#x2F;eLB8Jos66jNGFwgebFUlvhzJKVHZtuc&#x2F;N8zGeEnTq6K0T&#x2F;B8w&#x3D;&#x3D;-MIIDTjCCAjagAwIBAgIBDTANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBMCAXDTE4MTEwMTEyMjk0NloYDzIwOTkwODA5MDIyNjA3WjAfMR0wGwYDVQQDDBRwcm9kMnktZnJvbS0yMDIwMTAxOTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMK3eyr0+Oys&#x2F;TwcQO+qYaXWGBmXcEP4fR0bHHzZd&#x2F;4WNGltXhecM80OWthA38BQRYAJBCKz&#x2F;dSkO2Kj1H2y+7KB5cIaOiJEyTESfTSgzQdot6laRBU8oxy9mmagI46M8zEEmplPybY4YJj4HOwZiBsMQEMxoTgMDLpuHX6uASoVhSj6koB55lOj4wEgsQBeAMWTAXmTl88ixE179J8aBUkBGpL8w&#x2F;tZzl9BJXZNF15gPfkS58rw8cdPzXLS0Yym37A2&#x2F;KKFhfHzJc5KhbaxqYzmkAfTMqPsIqCQ1lQUAqfiPn2gN2I1Z3&#x2F;cQuEW27M55fXVr2DduQe5DWzYJs85L50CAwEAAaOBmTCBljAJBgNVHRMEAjAAMB0GA1UdDgQWBBQk2hEilvWFQcCTR+gxI0z0wIQC&#x2F;zBIBgNVHSMEQTA&#x2F;gBSjnrZIZ0ISNkG9beC5tKBSi5fxs6EcpBowGDEWMBQGA1UEAwwNSmV0UHJvZmlsZSBDQYIJANJssYOyg3nhMBMGA1UdJQQMMAoGCCsGAQUFBwMBMAsGA1UdDwQEAwIFoDANBgkqhkiG9w0BAQsFAAOCAQEAsCQBjO5wttco&#x2F;Z5cj&#x2F;o4GBrku8UtBBBVFq4xsBanshTHm4deVxcTvta4aScV0TPKcaLqGqWx8A9v8XXO8dBbCuyXvWZteZ&#x2F;C2Covg1xXiM99lz7VxqpjVmLdKanZn5u0gQSiYJdcfF+TdbmEIeSOnN&#x2F;kLXNq2hXdJQK2zk2J25UZqu5EibRtTbdOzw6ZcfwJ8uOntXfsmAhnNICP3Wf&#x2F;4wR&#x2F;mwB0Ka4S+JA3IbF5MUmUZ&#x2F;fjUaFarnin70us+Vxf&#x2F;sZUi7u67wilvwVV0NAqDpthHUV0NRc4q+yOr2Dt&#x2F;uCHdy4XRXLJfAv&#x2F;z9&#x2F;xBwNZZALNz3EtQL6IeIWWJByl3g&#x3D;&#x3D;</p>]]></content>
-    
-    
-    <summary type="html">Mac上破解Jetbrains全家桶的办法</summary>
-    
-    
-    
-    <category term="软件" scheme="https://01petard.github.io/categories/%E8%BD%AF%E4%BB%B6/"/>
-    
-    
-    <category term="JetBrains" scheme="https://01petard.github.io/tags/JetBrains/"/>
-    
-    <category term="Idea" scheme="https://01petard.github.io/tags/Idea/"/>
-    
-    <category term="破解" scheme="https://01petard.github.io/tags/%E7%A0%B4%E8%A7%A3/"/>
     
   </entry>
   
