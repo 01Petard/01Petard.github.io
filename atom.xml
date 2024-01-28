@@ -6,7 +6,7 @@
   <link href="https://01petard.github.io/atom.xml" rel="self"/>
   
   <link href="https://01petard.github.io/"/>
-  <updated>2023-12-24T07:39:05.453Z</updated>
+  <updated>2024-01-28T10:01:18.355Z</updated>
   <id>https://01petard.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2024年1月记录</title>
+    <link href="https://01petard.github.io/2024/01/28/2024%E5%B9%B41%E6%9C%88%E8%AE%B0%E5%BD%95/"/>
+    <id>https://01petard.github.io/2024/01/28/2024%E5%B9%B41%E6%9C%88%E8%AE%B0%E5%BD%95/</id>
+    <published>2024-01-28T09:37:00.000Z</published>
+    <updated>2024-01-28T10:01:18.355Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>没什么事可以写，为什么呢？因为👴真的被狗导累死。</p><p>为了完成狗屎一样的小论文，我已经一个月没像样地学习了，git断了一个月吧，java也断了一个月。</p><p>之前去找某人讨论的时候，不知不觉也是和他聊了5个小时，5个小时啊5个小时！如果没人向他反映情况，他估计一辈子都觉得自己管理得还不错，结果当他态度发生改变后，有人就觉得不舒服了。于是我也渐渐转变态度了，我觉得这世上就是有人喜欢犯贱，喜欢抵抗，就是不喜欢被管着的感觉，然后你要是真的不管了吧，人家就M瘾犯了，不被抽两下就是不舒服，就是贱！以此类推，再往高一点的地方走，这种情况会更复杂，人的种类会越分越多，到最后就是一个比一个绝，一个比一个逆天！妈的，就是服了，怎么就会这样子，总会有人喜欢折腾，然后遇到一个也喜欢折腾别人的人，一起搞来搞去，把平稳顺利的事情弄得一坨屎！</p><p>晦气！</p>]]></content>
+    
+    
+    <summary type="html">学术上的事情，神秘莫测</summary>
+    
+    
+    
+    <category term="其他" scheme="https://01petard.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+    <category term="研究生" scheme="https://01petard.github.io/tags/%E7%A0%94%E7%A9%B6%E7%94%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>2023年12月记录</title>
@@ -430,27 +451,6 @@
     <category term="游戏" scheme="https://01petard.github.io/tags/%E6%B8%B8%E6%88%8F/"/>
     
     <category term="总结" scheme="https://01petard.github.io/tags/%E6%80%BB%E7%BB%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于bing国内重定向解决方案</title>
-    <link href="https://01petard.github.io/2023/02/12/%E5%85%B3%E4%BA%8Ebing%E5%9B%BD%E5%86%85%E9%87%8D%E5%AE%9A%E5%90%91%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>https://01petard.github.io/2023/02/12/%E5%85%B3%E4%BA%8Ebing%E5%9B%BD%E5%86%85%E9%87%8D%E5%AE%9A%E5%90%91%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
-    <published>2023-02-12T04:34:15.000Z</published>
-    <updated>2023-07-20T05:50:55.089Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>去年因为chatGPT火了嘛，所以微软也乘机搞起了大规模语言生成模型，于是最近就有了这个东西，但是中国的用户去必应首页会被重定向到国内的网站的（也就是cn版），于是我就发一下如何解决这个问题吧：</p><p>1.在你的浏览器扩展商店里获取<strong>header editor</strong>插件。</p><p><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/20230215005613.png"></p><p>2.在插件里面导入这个脚本，并保存后再次访问即可解决问题</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gist.githubusercontent.com/yuhangch/9abc4220af46a1f4a7fc97393e2f040e/raw/89c889b0e7a80446c931823edd612630fd62d165/header-editor-config.json</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">仲裹初拼，毕输经拼</summary>
-    
-    
-    
-    <category term="软件" scheme="https://01petard.github.io/categories/%E8%BD%AF%E4%BB%B6/"/>
-    
-    
-    <category term="必应bing" scheme="https://01petard.github.io/tags/%E5%BF%85%E5%BA%94bing/"/>
     
   </entry>
   
