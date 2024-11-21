@@ -1,0 +1,438 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Kafka原理 | 花火の红玉宫</title><meta name="keywords" content="Kafka"><meta name="author" content="伪音花火"><meta name="copyright" content="伪音花火"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Kafka原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka原理">
+<meta property="og:url" content="https://01petard.github.io/2024/08/15/Kafka%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="花火の红玉宫">
+<meta property="og:description" content="Kafka原理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202410212144558.png">
+<meta property="article:published_time" content="2024-08-15T02:28:00.000Z">
+<meta property="article:modified_time" content="2024-08-15T02:28:00.000Z">
+<meta property="article:author" content="伪音花火">
+<meta property="article:tag" content="Kafka">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202410212144558.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://01petard.github.io/2024/08/15/Kafka%E5%8E%9F%E7%90%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/./public/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Kafka原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-15 10:28:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/box_alpha.css"><link rel="stylesheet" href="/css/double_column.css"><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="花火の红玉宫" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/01petard.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">133</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">176</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="fa-fw fas fa-code"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E8%BD%AF%E4%BB%B6/"><i class="fa-fw fa-brands fa-app-store-ios"></i><span> 软件</span></a></div><div class="menus_item"><a class="site-page" href="/categories/ACG/"><i class="fa-fw fas fa-heart"></i><span> ACG</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E5%85%B6%E4%BB%96/"><i class="fa-fw fa-solid fa-comment-slash"></i><span> 其他</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fa-fw fab fa-youtube"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-address-card"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202410212145761.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">花火の红玉宫</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="fa-fw fas fa-code"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E8%BD%AF%E4%BB%B6/"><i class="fa-fw fa-brands fa-app-store-ios"></i><span> 软件</span></a></div><div class="menus_item"><a class="site-page" href="/categories/ACG/"><i class="fa-fw fas fa-heart"></i><span> ACG</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E5%85%B6%E4%BB%96/"><i class="fa-fw fa-solid fa-comment-slash"></i><span> 其他</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fa-fw fab fa-youtube"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-address-card"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Kafka原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-15T02:28:00.000Z" title="发表于 2024-08-15 10:28:00">2024-08-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-15T02:28:00.000Z" title="更新于 2024-08-15 10:28:00">2024-08-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Kafka原理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202410212145761.png');"></div><article class="post-content" id="article-container"><h1 id="1-什么是kafka"><a href="#1-什么是kafka" class="headerlink" title="1.什么是kafka"></a>1.什么是kafka</h1><p>kafka是用于构建实时数据管道和数据流的应用程序，是一个高性能分布式消息系统。具有实时横向扩展、高吞吐量、支持大量堆积、具有容错性和速度快等特点。</p>
+<h1 id="2-kafka的应用"><a href="#2-kafka的应用" class="headerlink" title="2.kafka的应用"></a>2.kafka的应用</h1><p><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150857130.png" alt="file"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150857325.png" alt="file"></p>
+<h1 id="3-kafka中的术语"><a href="#3-kafka中的术语" class="headerlink" title="3.kafka中的术语"></a>3.kafka中的术语</h1><p> broker：kafka服务器，用于存储消息，一般是由多个broker组成kafka集群。<br> topic：kafka给消息提供的分类方式。broker用来存储不同topic的消息数据。<br> producer：往broker中某个topic里面生产数据。<br> consumer：从broker中某个topic获取数据。</p>
+<h1 id="4-kafka中各部分的工作原理"><a href="#4-kafka中各部分的工作原理" class="headerlink" title="4.kafka中各部分的工作原理"></a>4.kafka中各部分的工作原理</h1><h2 id="1-Broker"><a href="#1-Broker" class="headerlink" title="1.Broker"></a>1.Broker</h2><p>Kafka 服务器，用于储存消息，一般是由多个broker组成kafka集群。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150857165.png" alt="file"></p>
+<h2 id="2-topic与消息"><a href="#2-topic与消息" class="headerlink" title="2.topic与消息"></a>2.topic与消息</h2><p>kafka将所有消息组织成多个topic的形式存储，而每个topic又可以拆分成多个partition，每个partition又由一个一个消息组成。每个消息都被标识了一个递增序列号代表其进来的先后顺序，并按顺序存储在partition中。这样，消息就以一个个id的方式，组织起来。<br><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150959434.png" alt="file"><br>producer选择一个topic，生产消息，消息会通过分配策略append到某个partition末尾。<br>consumer选择一个topic，通过id指定从哪个位置开始消费消息。消费完成之后保留id，下次可以从这个位置开始继续消费，也可以从其他任意位置开始消费。</p>
+<p>上面的id在kafka中称为offset(偏移量)，这种组织和处理策略提供了如下好处：<br>1.消费者可以根据需求，灵活指定offset消费。<br>2.保证了消息不变性，为并发消费提供了线程安全的保证。每个consumer都保留自己的offset，互相之间不干扰，不存在线程安全问题。<br> 3.消息访问的并行高效性。每个topic中的消息被组织成多个partition，partition均匀分配到集群server中。生产、消费消息的时候，会被路由到指定partition，减少竞争，增加了程序的并行能力。<br> 4.增加消息系统的可伸缩性。每个topic中保留的消息可能非常庞大，通过partition将消息切分成多个子消息，并通过负责均衡策略将partition分配到不同server。这样当机器负载满的时候，通过扩容可以将消息重新均匀分配。<br> 5.保证消息可靠性。消息消费完成之后不会删除，可以通过重置offset重新消费，保证了消息不会丢失。<br> 6.灵活的持久化策略。可以通过指定时间段（如最近一天）来保存消息，节省broker存储空间。<br> 7.备份高可用性。消息以partition为单位分配到多个server，并以partition为单位进行备份。备份策略为：1个leader和N个followers，leader接受读写请求，followers被动复制leader。leader和followers会在集群中打散，保证partition高可用。</p>
+<h2 id="3-partitions"><a href="#3-partitions" class="headerlink" title="3.partitions"></a>3.partitions</h2><p>每个Topics划分为一个或者多个Partition,并且Partition中的每条消息都被标记了一个sequential id ,也就是offset,并且存储的数据是可配置存储时间的<br><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150857528.png" alt="file"></p>
+<h2 id="4-Producer"><a href="#4-Producer" class="headerlink" title="4.Producer"></a>4.Producer</h2><p>消息生产者，生产消息需要如下参数：<br> 1.topic：往哪个topic生产消息。<br> 2.partition：往哪个partition生产消息。<br> 3.key：根据该key将消息分区到不同partition。<br> 4.message：消息。<br><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150959792.png" alt="file"></p>
+<h2 id="5-Comsumer"><a href="#5-Comsumer" class="headerlink" title="5.Comsumer"></a>5.Comsumer</h2><p>传统消息系统有两种模式：1.队列 2.发布订阅<br>kafka通过consumer group将两种模式统一处理：每个consumer将自己标记consumer group名称，之后系统会将consumer group按名称分组，将消息复制并分发给所有分组，每个分组只有一个consumer能消费这条消息。<br><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150854330.png" alt="file"><br><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150857699.png" alt="file"><br>于是推理出两个极端情况：<br>当所有consumer的consumer group相同时，系统变成队列模式<br>当每个consumer的consumer group都不相同时，系统变成发布订阅</p>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>1、Consumer Groups 提供了topics和partitions的隔离。如上图Consumer Group A中的consumer-C2挂掉，consumer-C1会接收P1,P2，即一个consumer Group中有其他consumer挂掉后能够重新平衡<br>2、多consumer并发消费消息时，容易导致消息乱序，通过限制消费者为同步，可以保证消息有序，但是这大大降低了程序的并发性。<br> kafka通过partition的概念，保证了partition内消息有序性，缓解了上面的问题。partition内消息会复制分发给所有分组，每个分组只有一个consumer能消费这条消息。这个语义保证了某个分组消费某个分区的消息，是同步而非并发的。如果一个topic只有一个partition，那么这个topic并发消费有序，否则只是单个partition有序。</p>
+<h3 id="consumer存在两种消费模型"><a href="#consumer存在两种消费模型" class="headerlink" title="consumer存在两种消费模型"></a>consumer存在两种消费模型</h3><p>push：优势在于消息实时性高。劣势在于没有考虑consumer消费能力和饱和情况，容易导致producer压垮consumer。<br> pull：优势在可以控制消费速度和消费数量，保证consumer不会出现饱和。劣势在于当没有数据，会出现空轮询，消耗cpu。</p>
+<p>kafka采用pull，并采用可配置化参数保证当存在数据并且数据量达到一定量的时候，consumer端才进行pull操作，否则一直处于block状态。kakfa采用整数值consumer position来记录单个分区的消费状态，并且单个分区单个消息只能被consumer group内的一个consumer消费，维护简单开销小。消费完成，broker收到确认，position指向下次消费的offset。由于消息不会删除，在完成消费，position更新之后，consumer依然可以重置offset重新消费历史消息。</p>
+<h1 id="5-可用性"><a href="#5-可用性" class="headerlink" title="5.可用性"></a>5.可用性</h1><p>在kafka中，正常情况下所有node处于同步中状态，当某个node处于非同步中状态，也就意味着整个系统出问题，需要做容错处理。</p>
+<h2 id="1-同步"><a href="#1-同步" class="headerlink" title="1.同步"></a>1.同步</h2><p>同步中的状态：<br>该node与zookeeper能连通。<br>该node如果是follower，那么consumer position与leader不能差距太大（差额可配置）。</p>
+<p>ISR: 某个分区内同步中的node组成一个集合，即该分区的ISR (即分区集群)。</p>
+<h2 id="2-容错机制"><a href="#2-容错机制" class="headerlink" title="2.容错机制"></a>2.容错机制</h2><p>kafka通过两个手段容错:<br>1.数据备份：以partition为单位备份，副本数可设置。当副本数为N时，代表1个leader，N-1个followers，followers可以视为leader的consumer，拉取leader的消息，append到自己的系统中。<br>2.failover：<br>当leader处于非同步中时，系统从followers中选举新leader。<br> 当某个follower状态变为非同步中时，leader会将此follower剔除ISR，当此follower恢复并完成数据同步之后再次进入 ISR。</p>
+<p>另外 kafka有个保障：当producer生产消息时，只有当消息被所有ISR确认时，才表示该消息提交成功。只有提交成功的消息，才能被consumer消费。<br>因此，当有N个副本时，N个副本都在ISR中，N-1个副本都出现异常时，系统依然能提供服务。<br>假设N副本全挂了，node恢复后会面临同步数据的过程，这期间ISR中没有node，会导致该分区服务不可用。kafka采用一种降级措施来处理：选举第一个恢复的node作为leader提供服务，以它的数据为基准，这个措施被称为脏leader选举.</p>
+<h1 id="6-一致性"><a href="#6-一致性" class="headerlink" title="6.一致性"></a>6.一致性</h1><p>有时高可用是体现在对一致性的牺牲上。如果希望达到强一致性，可以采取如下措施：<br>1.禁用脏leader选举，ISR没有node时，宁可不提供服务也不要未完全同步的node。<br>2.设置最小ISR数量min_isr，保证消息至少要被min_isr个node确认才能提交。</p>
+<h1 id="7-持久化"><a href="#7-持久化" class="headerlink" title="7.持久化"></a>7.持久化</h1><h2 id="7-1概述"><a href="#7-1概述" class="headerlink" title="7.1概述"></a>7.1概述</h2><p>Kafka很大程度上依赖文件系统来存储和缓存消息。有一普遍的认识：磁盘很慢。这让人们怀疑使用磁盘作为持久化的性能。实际上，磁盘是快还是慢完全取决于我们是如何使用它。<br>   就目前来说，一个 six 7200rpm SATA RAID-5磁盘线性（顺序）写入的性能能达到600MB/sec，而任意位置写（寻址再写）的性能只有100k/sec。并且现在的操作系统提供了预读取和后写入的技术。实际上，顺序的磁盘读写比任意的内存读写更快。</p>
+<h3 id="基于jvm内存有以下缺点："><a href="#基于jvm内存有以下缺点：" class="headerlink" title="基于jvm内存有以下缺点："></a>基于jvm内存有以下缺点：</h3><p>1.对象的内存开销非常高，通常会让存储数据的大小加倍（或更多）<br>2.随着堆内数据的增加，GC的速度越来越慢，而且可能导致错误</p>
+<h3 id="基于操作系统的文件系统来设计有以下好处："><a href="#基于操作系统的文件系统来设计有以下好处：" class="headerlink" title="基于操作系统的文件系统来设计有以下好处："></a>基于操作系统的文件系统来设计有以下好处：</h3><p>1.可以通过os的pagecache来有效利用主内存空间，由于数据紧凑，可以cache大量数据，并且没有gc的压力<br>2.即使服务重启，缓存中的数据也是热的（不需要预热）。而基于进程的缓存，需要程序进行预热，而且会消耗很长的时间。（10G大概需要10分钟）<br>3.大大简化了代码。因为在缓存和文件系统之间保持一致性的所有逻辑都在OS中。以上建议和设计使得代码实现起来十分简单，不需要尽力想办法去维护内存中的数据，数据会立即写入磁盘。</p>
+<h2 id="7-2-kafka数据持久化"><a href="#7-2-kafka数据持久化" class="headerlink" title="7.2 kafka数据持久化"></a>7.2 kafka数据持久化</h2><p>1.线性的访问磁盘（即：按顺序的访问磁盘），很多时候比随机的内存访问快得多，而且有利于持久化；<br>2.传统使用的内存做为磁盘的缓存<br>3.Kafka直接将数据写入到日志文件中，以追加的形式写入</p>
+<h2 id="7-3日志数据持久化"><a href="#7-3日志数据持久化" class="headerlink" title="7.3日志数据持久化"></a>7.3日志数据持久化</h2><p>写操作：通过将数据追加到文件中实现<br>读操作：读的时候从文件中读就好了</p>
+<h2 id="7-4-持久化的优势"><a href="#7-4-持久化的优势" class="headerlink" title="7.4 持久化的优势"></a>7.4 持久化的优势</h2><p>读操作不会阻塞写操作和其他操作（因为读和写都是追加的形式，都是顺序的，不会乱，所以不会发生阻塞），数据大小不对性能产生影响；<br>没有容量限制（相对于内存来说）的硬盘空间建立消息系统；<br>线性访问磁盘，速度快，可以保存任意一段时间！</p>
+<h2 id="7-5持久化的具体实现"><a href="#7-5持久化的具体实现" class="headerlink" title="7.5持久化的具体实现"></a>7.5持久化的具体实现</h2><p>1.一个topic可以认为是一类消息，每个topic将被分成多个partition,每个partition在存储层面是append log文件。任何发布到此partition的消息都会被追加到log文件的尾部，每条消息在文件中的位置成为offset(偏移量)，partition是以文件的形式存储到文件体统中的。<br>2.Logs文件根据broker中的配置要求,保留一定时间后删除来释放磁盘空间(默认7天)。</p>
+<h2 id="7-6-kafka的索引"><a href="#7-6-kafka的索引" class="headerlink" title="7.6 kafka的索引"></a>7.6 kafka的索引</h2><p>稀疏存储，每隔一定字节的数据建立一条索引（这样的目的是为了减少索引文件的大小）。<br><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150959871.png" alt="file"><br>1.现在对6.和8建立了索引，如果要查找7，则会先查找到8然后，再找到8后的一个索引6，然后两个索引之间做二分法，找到7的位置<br>2.每一个log文件中又分为多个segment</p>
+<h1 id="8-kafka分布式实现"><a href="#8-kafka分布式实现" class="headerlink" title="8.kafka分布式实现"></a>8.kafka分布式实现</h1><p><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408150959325.png" alt="file"><br>1.当生产者将消息发送到Kafka后，就会去立刻通知ZooKeeper，zookeeper中会watch到相关的动作，当watch到相关的数据变化后，会通知消费者去消费消息。<br>2.消费者是主动去Pull（拉)kafka中的消息，这样可以降低Broker的压力，因为Broker中的消息是无状态的，Broker也不知道哪个消息是可以消费的<br>3.当消费者消费了一条消息后，也必须要去通知ZooKeeper。zookeeper会记录下消费的数据，这样当系统出现问题后就可以还原，可以知道哪些消息已经被消费了<br><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202408151000790.png" alt="file"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://01petard.github.io/">伪音花火</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://01petard.github.io/2024/08/15/Kafka%E5%8E%9F%E7%90%86/">https://01petard.github.io/2024/08/15/Kafka原理/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://01petard.github.io" target="_blank">花火の红玉宫</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Kafka/">Kafka</a></div><div class="post_share"><div class="addthis_inline_share_toolbox"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=null" async="async"></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFkafka"><span class="toc-number">1.</span> <span class="toc-text">1.什么是kafka</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-kafka%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">2.kafka的应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-kafka%E4%B8%AD%E7%9A%84%E6%9C%AF%E8%AF%AD"><span class="toc-number">3.</span> <span class="toc-text">3.kafka中的术语</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-kafka%E4%B8%AD%E5%90%84%E9%83%A8%E5%88%86%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">4.kafka中各部分的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Broker"><span class="toc-number">4.1.</span> <span class="toc-text">1.Broker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-topic%E4%B8%8E%E6%B6%88%E6%81%AF"><span class="toc-number">4.2.</span> <span class="toc-text">2.topic与消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-partitions"><span class="toc-number">4.3.</span> <span class="toc-text">3.partitions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Producer"><span class="toc-number">4.4.</span> <span class="toc-text">4.Producer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Comsumer"><span class="toc-number">4.5.</span> <span class="toc-text">5.Comsumer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">4.5.1.</span> <span class="toc-text">注意点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consumer%E5%AD%98%E5%9C%A8%E4%B8%A4%E7%A7%8D%E6%B6%88%E8%B4%B9%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.5.2.</span> <span class="toc-text">consumer存在两种消费模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="toc-number">5.</span> <span class="toc-text">5.可用性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%90%8C%E6%AD%A5"><span class="toc-number">5.1.</span> <span class="toc-text">1.同步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6"><span class="toc-number">5.2.</span> <span class="toc-text">2.容错机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-number">6.</span> <span class="toc-text">6.一致性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">7.</span> <span class="toc-text">7.持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1%E6%A6%82%E8%BF%B0"><span class="toc-number">7.1.</span> <span class="toc-text">7.1概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Ejvm%E5%86%85%E5%AD%98%E6%9C%89%E4%BB%A5%E4%B8%8B%E7%BC%BA%E7%82%B9%EF%BC%9A"><span class="toc-number">7.1.1.</span> <span class="toc-text">基于jvm内存有以下缺点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%9D%A5%E8%AE%BE%E8%AE%A1%E6%9C%89%E4%BB%A5%E4%B8%8B%E5%A5%BD%E5%A4%84%EF%BC%9A"><span class="toc-number">7.1.2.</span> <span class="toc-text">基于操作系统的文件系统来设计有以下好处：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-kafka%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">7.2.</span> <span class="toc-text">7.2 kafka数据持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3%E6%97%A5%E5%BF%97%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">7.3.</span> <span class="toc-text">7.3日志数据持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-%E6%8C%81%E4%B9%85%E5%8C%96%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">7.4.</span> <span class="toc-text">7.4 持久化的优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5%E6%8C%81%E4%B9%85%E5%8C%96%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">7.5.</span> <span class="toc-text">7.5持久化的具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-6-kafka%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="toc-number">7.6.</span> <span class="toc-text">7.6 kafka的索引</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-kafka%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="toc-number">8.</span> <span class="toc-text">8.kafka分布式实现</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2024 By 伪音花火</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'http://1.94.147.176:38080/',
+      region: 'ap-shanghai',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'http://1.94.147.176:38080/',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'http://1.94.147.176:38080/',
+        region: 'ap-shanghai',
+        pageSize: 5,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 1/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/gallery/wallpaper-for-universal/"]):not([href="/gallery/wallpaper-for-display/"]):not([href="/gallery/wallpaper-for-mac/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":33,"vOffset":-40},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>

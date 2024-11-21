@@ -1,0 +1,528 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>C++的STL库常见函数 | 花火の红玉宫</title><meta name="keywords" content="vector,set,map,deque,list,bitset,queue,priority_queue"><meta name="author" content="伪音花火"><meta name="copyright" content="伪音花火"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="STL库包含了几种常见的数据结构，涵盖了大部分常用函数（附带源码）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++的STL库常见函数">
+<meta property="og:url" content="https://01petard.github.io/2022/03/01/C++%E7%9A%84STL%E5%BA%93%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="花火の红玉宫">
+<meta property="og:description" content="STL库包含了几种常见的数据结构，涵盖了大部分常用函数（附带源码）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-b2e6cea8a7edd4a9580d7c9e272e4698_720w.jpg?source=172ae18b">
+<meta property="article:published_time" content="2022-03-01T13:24:15.000Z">
+<meta property="article:modified_time" content="2023-07-20T05:50:56.000Z">
+<meta property="article:author" content="伪音花火">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="STL库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic2.zhimg.com/v2-b2e6cea8a7edd4a9580d7c9e272e4698_720w.jpg?source=172ae18b"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://01petard.github.io/2022/03/01/C++%E7%9A%84STL%E5%BA%93%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/./public/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++的STL库常见函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-07-20 13:50:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/box_alpha.css"><link rel="stylesheet" href="/css/double_column.css"><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="花火の红玉宫" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/01petard.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">133</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">176</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="fa-fw fas fa-code"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E8%BD%AF%E4%BB%B6/"><i class="fa-fw fa-brands fa-app-store-ios"></i><span> 软件</span></a></div><div class="menus_item"><a class="site-page" href="/categories/ACG/"><i class="fa-fw fas fa-heart"></i><span> ACG</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E5%85%B6%E4%BB%96/"><i class="fa-fw fa-solid fa-comment-slash"></i><span> 其他</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fa-fw fab fa-youtube"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-address-card"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://262235.xyz/usr/uploads/2021/08/3919360386.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">花火の红玉宫</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E5%AD%A6%E4%B9%A0/"><i class="fa-fw fas fa-code"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E8%BD%AF%E4%BB%B6/"><i class="fa-fw fa-brands fa-app-store-ios"></i><span> 软件</span></a></div><div class="menus_item"><a class="site-page" href="/categories/ACG/"><i class="fa-fw fas fa-heart"></i><span> ACG</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E5%85%B6%E4%BB%96/"><i class="fa-fw fa-solid fa-comment-slash"></i><span> 其他</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-book"></i><span> 文档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa-fw fas fa-images"></i><span> 图库</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fa-fw fab fa-youtube"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-address-card"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C++的STL库常见函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-01T13:24:15.000Z" title="发表于 2022-03-01 21:24:15">2022-03-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-20T05:50:56.000Z" title="更新于 2023-07-20 13:50:56">2023-07-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++的STL库常见函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://262235.xyz/usr/uploads/2021/08/3919360386.jpg');"></div><article class="post-content" id="article-container"><p><strong>vector（动态数组）</strong></p>
+<p>尾部添加，push_back()</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; v;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cout&lt;&lt;<span class="string">"输入最大值n:"</span>&lt;&lt;endl;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++) {</span><br><span class="line">        v.<span class="built_in">push_back</span>(i);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>中间插入（前插入&amp;后插入），insert()</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; v{<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">0</span>};</span><br><span class="line"></span><br><span class="line">  <span class="comment">//begin返回指向容器第一个元素的迭代器</span></span><br><span class="line">  <span class="comment">//begin+n 从下标0开始，在0+n下标的元素前面插入，begin就是在最前面插入</span></span><br><span class="line">    v.<span class="built_in">insert</span>(v.<span class="built_in">begin</span>()<span class="number">+2</span>,<span class="number">111</span>);<span class="comment">//3 2 111 6 5 0</span></span><br><span class="line">    <span class="built_in">print_container1</span>(v);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//end返回指向容器最后一个元素下一个位置的迭代器</span></span><br><span class="line">  <span class="comment">//end + n 从最后一个元素开始，在倒数n个元素之前插入，end就是直接在最后插入</span></span><br><span class="line">    v.<span class="built_in">insert</span>(v.<span class="built_in">end</span>()<span class="number">-1</span>,<span class="number">111</span>);<span class="comment">//3 2 6 5 111 0</span></span><br><span class="line">    <span class="built_in">print_container1</span>(v);</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/e31ff82fa644889c510d8d9ba36d4f7a.png" alt="Snipaste_2022-03-01_22-08-07">中间删除，erase()</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">v.<span class="built_in">erase</span>(v.<span class="built_in">begin</span>());<span class="comment">//删除第一个数（下标为0）</span></span><br><span class="line">v.<span class="built_in">erase</span>(v.<span class="built_in">end</span>());<span class="comment">//删除最后一个数（下标为n-1）</span></span><br><span class="line">v.<span class="built_in">erase</span>(v.<span class="built_in">begin</span>()+x,v.<span class="built_in">end</span>()-y);<span class="comment">//删除下标0+x～n-1-y的数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">思考：</span></span><br><span class="line"><span class="comment">vector&lt;int&gt; v = {0,1,2,3,4,5,6,7,8,9};</span></span><br><span class="line"><span class="comment">v.erase(v.begin()+2,v.end()-3);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">结果：0 1 7 8 9</span></span><br><span class="line"><span class="comment">只保留了前2个数和后3个数。因此，v.erase(v.begin()+x,v.end()-y)的作用就是保留前x个数和后y个数的意思</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>erase实例：去除偶数</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; k{<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>};</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; tmp = k;<span class="comment">//不破坏原数组</span></span><br><span class="line"><span class="keyword">for</span>(vector&lt;<span class="type">int</span>&gt;::iterator it = tmp.<span class="built_in">begin</span>();it!=tmp.<span class="built_in">end</span>();){</span><br><span class="line">    <span class="keyword">if</span>(*it%<span class="number">2</span>==<span class="number">0</span>){<span class="comment">//*it是当前下标的数，it是指向当前位置数的迭代器（指针）</span></span><br><span class="line">        it = tmp.<span class="built_in">erase</span>(it);<span class="comment">//把当前位置的迭代器（指针）删除，就删除这个指针所指向的数，因此这个数就被删除了</span></span><br><span class="line">    }<span class="keyword">else</span>{</span><br><span class="line">        it++;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="built_in">print_container1</span>(v);</span><br><span class="line"><span class="comment">/*结果：</span></span><br><span class="line"><span class="comment">1 3 5 7 9</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>数组长度&amp;内存申请长度，size()&amp;capacity()</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//假设我往数组v中推了10个数</span></span><br><span class="line"></span><br><span class="line">k.<span class="built_in">size</span>();<span class="comment">//10</span></span><br><span class="line">k.<span class="built_in">capacity</span>();<span class="comment">//16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//假设我往数组v中推了33个数</span></span><br><span class="line"></span><br><span class="line">k.<span class="built_in">size</span>();<span class="comment">//33</span></span><br><span class="line">k.<span class="built_in">capacity</span>();<span class="comment">//64</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//假设我往数组v中推了1025个数</span></span><br><span class="line"></span><br><span class="line">k.<span class="built_in">size</span>();<span class="comment">//1025</span></span><br><span class="line">k.<span class="built_in">capacity</span>();<span class="comment">//2048</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">因此，不难得出结论，size()是数组真实的长度，capacity()是数组占用内存的长度</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>转置，reverse()</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; v = {<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>};</span><br><span class="line"><span class="built_in">reverse</span>(v.<span class="built_in">begin</span>()<span class="number">+2</span>, v.<span class="built_in">end</span>()<span class="number">-2</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span> ;i&lt;v.<span class="built_in">size</span>(); i++) {</span><br><span class="line">    cout&lt;&lt;v[i]&lt;&lt;endl;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">结果：0 1 7 6 5 4 3 2 8 9</span></span><br><span class="line"><span class="comment">倒置的输入参数与insert同理，倒置的作用就是把范围内的数组颠倒了</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>排序，sort()</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义比较函数</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">Comp</span><span class="params">(<span class="type">const</span> <span class="type">int</span> &amp;a,<span class="type">const</span> <span class="type">int</span> &amp;b)</span></span>{</span><br><span class="line">    <span class="keyword">return</span> a&gt;b;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; v = {<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">6</span>,<span class="number">4</span>};</span><br><span class="line">  <span class="built_in">sort</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());<span class="comment">//默认升序：0 1 2 3 4 5 6 7 8 9</span></span><br><span class="line">  <span class="built_in">sort</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(),Comp);<span class="comment">//降序：9 8 7 6 5 4 3 2 1 0</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>字符串的输入</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">    string s1;</span><br><span class="line">    string s2;</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span> s[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);<span class="comment">//scanf输入速度比cin快得多，但是scanf是C函数，不可以输入string</span></span><br><span class="line">    s1 = s;<span class="comment">//因此需要用等号赋值给string(但是这个操作不好，用printf会报错，后面会说的)</span></span><br><span class="line">    cout&lt;&lt;s1&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cin&gt;&gt;s2;<span class="comment">//但是用cin就方便很多</span></span><br><span class="line">    cout&lt;&lt;s2&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>string实例，求一个整数各位数的和</p>
+<p>经常会遇到这样一种情况，有一个数字，需要把每一位给提取出来，如果用取余数的方法，花费的时间就会很长，所以可以当成字符串来处理，方便、省时。</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">    string s;</span><br><span class="line">    s = <span class="string">"123456789"</span>;</span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); ++i){</span><br><span class="line">        <span class="keyword">switch</span>(s[i]){</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'1'</span>: sum += <span class="number">1</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'2'</span>: sum += <span class="number">2</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'3'</span>: sum += <span class="number">3</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'4'</span>: sum += <span class="number">4</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'5'</span>: sum += <span class="number">5</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'6'</span>: sum += <span class="number">6</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'7'</span>: sum += <span class="number">7</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'8'</span>: sum += <span class="number">8</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'9'</span>: sum += <span class="number">9</span>;<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:<span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/*输出结果：</span></span><br><span class="line"><span class="comment">45</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>C语言的一些遗留问题，比如使用string类的自身方法c_str()去处理string和char*赋值问题，（这就是c++做得还不够好的地方）</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span><span class="comment">//需要包含cstring的字符串的库</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    string s_string;</span><br><span class="line">    <span class="type">char</span> s_char[<span class="number">1000</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s_char);</span><br><span class="line">    s_string = s_char;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"s_string.c_str():%s\n"</span>, s_string.<span class="built_in">c_str</span>());<span class="comment">//printf输出char*时用c_str处理，c_str()函数返回一个指向正规C字符串的指针, 内容与本string串相同</span></span><br><span class="line">    cout&lt;&lt;<span class="string">"s_string:"</span>&lt;&lt;s_string&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"s_char:%s\n"</span>,s_char);</span><br><span class="line">    cout&lt;&lt;<span class="string">"s_char:"</span>&lt;&lt;s_char&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;<span class="string">"s_string"</span>&lt;&lt;s_string&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查找，find()</p>
+<p>以及⬇️</p>
+<p>反向查找，rfind()</p>
+<p>首次出现位置，find_first_of()</p>
+<p>最后出现位置，find_last_of()</p>
+<p>这些我就不细说了，用法都是一样的，都是返回一个下标</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">    <span class="comment">////find函数返回类型 size_type</span></span><br><span class="line">    string s = <span class="string">"1a2b3c4d5e6f7jkg8h9i1a2b3c4d5e6f7g8ha9i"</span>;</span><br><span class="line">    string flag;</span><br><span class="line">    string::size_type position;</span><br><span class="line">    <span class="comment">//find函数返回“jk”在s中的下标位置</span></span><br><span class="line">    position = s.<span class="built_in">find</span>(<span class="string">"jk"</span>);</span><br><span class="line">    cout&lt;&lt;position&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">if</span> (position != s.npos){ <span class="comment">//如果没找到，返回一个特别的标志c++中用npos表示，我这里npos取值是4294967295</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"position is : %lu\n"</span> ,position);</span><br><span class="line">    }<span class="keyword">else</span>{</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Not found the flag\n"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出结果：</span></span><br><span class="line"><span class="comment">13</span></span><br><span class="line"><span class="comment">position:13</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><em>关于string::size_type 的理解：</em></p>
+<p><em>在C++标准库类型 string  ，在调用size函数求解string 对象时，返回值为size_type类型，一种类似于unsigned类型的int 数据。可以理解为一个与unsigned含义相同，且能足够大能存储任意string的类型。在C++  primer 中 提到  库类型一般定义了一些配套类型，通过配套类型，库类型就能与机器无关。我理解为 机器可以分为16位 32位64位等，如果利用int等内置类型，容易影响最后的结果，过大的数据可能丢失。</em></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/nibiebiwo/article/details/54668623">string::size_type 的理解_nibiebiwo的博客-CSDN博客</a></p>
+</blockquote>
+<p>查找子串</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">position=s.<span class="built_in">find</span>(<span class="string">"b"</span>,<span class="number">5</span>);<span class="comment">//查找从某个位置之后第一次出现子串的位置</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>查找所有子串出现的位置</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找s 中flag 出现的所有位置。</span></span><br><span class="line"><span class="function">string <span class="title">s</span><span class="params">(<span class="string">"1a2b3c4d5e6f7jkg8h9i1a2b3c4d5e6f7g8ha9i"</span>)</span></span>;</span><br><span class="line">flag=<span class="string">"a"</span>;</span><br><span class="line">position=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>((position=s.<span class="built_in">find</span>(flag,position))!=string::npos){</span><br><span class="line">   cout&lt;&lt;<span class="string">"position"</span>&lt;&lt;i&lt;&lt;<span class="string">":"</span>&lt;&lt;position&lt;&lt;endl;</span><br><span class="line">   position++;</span><br><span class="line">   i++;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b1d7e559bfaba8bf640676aa48d38e91.png" alt="1358881-20180806113411182-2033985085"></p>
+<p>求和，accumulate()</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line"><span class="comment">//起始位置，结束位置，起始累加值(一般都是从0开始吧)</span></span><br><span class="line"><span class="built_in">accumulate</span>(v.<span class="built_in">begin</span>(),v.<span class="built_in">end</span>(),<span class="number">0</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>vector数组的3种遍历方法，我写了三个都挺好用的，可以适当修改一下输出格式</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">print_container1</span><span class="params">(vector&lt;<span class="type">int</span>&gt; vec)</span></span>{</span><br><span class="line">    <span class="keyword">for</span>(vector&lt;<span class="type">int</span>&gt;::iterator it = vec.<span class="built_in">begin</span>();it!=vec.<span class="built_in">end</span>();it++){</span><br><span class="line">        cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print_container2</span><span class="params">(vector&lt;<span class="type">int</span>&gt; vec)</span></span>{</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;::iterator it = vec.<span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">while</span>(it!=vec.<span class="built_in">end</span>()) {</span><br><span class="line">        cout&lt;&lt;*it&lt;&lt;endl;</span><br><span class="line">        it++;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print_container3</span><span class="params">(vector&lt;<span class="type">int</span>&gt; vec)</span></span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;vec.<span class="built_in">size</span>();i++){</span><br><span class="line">        cout&lt;&lt;vec[i]&lt;&lt;endl;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>set容器</strong></p>
+<p>set是用红黑树的平衡二叉索引树的数据结构来实现的，插入时，它会自动调节二叉树排列，把元素放到适合的位置，确保每个子树根节点的键值大于左子树所有的值、小于右子树所有的值，插入重复数据时会忽略。set迭代器采用中序遍历，检索效率高于vector、deque、list，并且会将元素按照升序的序列遍历。set容器中的数值，一经更改，set会根据新值旋转二叉树，以保证平衡，构建set就是为了快速检索。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/58e4b279c964e33636ed1d302d1c45c9.png" alt="2012041216083142"></p>
+<p>multiset，与set不同之处就是它允许有重复的键值。</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; v;</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">1</span>);<span class="comment">//边插边排序</span></span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">3</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">5</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">2</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">4</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">3</span>);<span class="comment">//会被忽略</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//中序遍历 升序遍历</span></span><br><span class="line">    <span class="keyword">for</span>(set&lt;<span class="type">int</span>&gt;::iterator it = v.<span class="built_in">begin</span>(); it != v.<span class="built_in">end</span>(); ++it){</span><br><span class="line">        cout&lt;&lt;*it&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span>(set&lt;<span class="type">int</span>&gt;::reverse_iterator rit = v.<span class="built_in">rbegin</span>(); rit != v.<span class="built_in">rend</span>(); ++rit){</span><br><span class="line">        cout&lt;&lt;*rit&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*结果：</span></span><br><span class="line"><span class="comment">1 2 3 4 5 //升序iterator</span></span><br><span class="line"><span class="comment">5 4 3 2 1 //降序reverse_iterator</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>自定义比较函数，insert的时候，set会使用默认的比较函数（升序），很多情况下需要自己编写比较函数。</p>
+<p>1、如果元素不是结构体，可以编写比较函数，下面这个例子是用降序排列的（和上例插入数据相同）：</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Comp</span>{</span><br><span class="line">    <span class="comment">//重载()</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> <span class="type">int</span> &amp;a, <span class="type">const</span> <span class="type">int</span> &amp;b)</span></span>{</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; v;</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">1</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">3</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">5</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">2</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">4</span>);</span><br><span class="line">    v.<span class="built_in">insert</span>(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(set&lt;<span class="type">int</span>,Comp&gt;::iterator it = v.<span class="built_in">begin</span>(); it != v.<span class="built_in">end</span>(); ++it){</span><br><span class="line">        cout &lt;&lt; *it &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(set&lt;<span class="type">int</span>,Comp&gt;::reverse_iterator rit = v.<span class="built_in">rbegin</span>(); rit != v.<span class="built_in">rend</span>(); ++rit){</span><br><span class="line">        cout &lt;&lt; *rit &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*结果：//这个之前的正好相反</span></span><br><span class="line"><span class="comment">5 4 3 2 1 </span></span><br><span class="line"><span class="comment">1 2 3 4 5 </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>2、元素本身就是结构体，直接把比较函数写在结构体内部，下面的例子依然降序：</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Info</span>{</span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">double</span> score;</span><br><span class="line">    <span class="comment">//重载 &lt;</span></span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span> &lt; (<span class="type">const</span> Info &amp;a) <span class="type">const</span>{</span><br><span class="line">        <span class="keyword">return</span> a.score &lt; score;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">    set&lt;Info&gt; s;</span><br><span class="line">    Info info;</span><br><span class="line"></span><br><span class="line">    info.name = <span class="string">"abc"</span>;</span><br><span class="line">    info.score = <span class="number">123.3</span>;</span><br><span class="line">    s.<span class="built_in">insert</span>(info);</span><br><span class="line"></span><br><span class="line">    info.name = <span class="string">"EDF"</span>;</span><br><span class="line">    info.score = <span class="number">-23.53</span>;</span><br><span class="line">    s.<span class="built_in">insert</span>(info);</span><br><span class="line"></span><br><span class="line">    info.name = <span class="string">"xyz"</span>;</span><br><span class="line">    info.score = <span class="number">73.3</span>;</span><br><span class="line">    s.<span class="built_in">insert</span>(info);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(set&lt;Info&gt;::iterator it = s.<span class="built_in">begin</span>(); it != s.<span class="built_in">end</span>(); ++it){</span><br><span class="line">        cout&lt;&lt;(*it).name&lt;&lt;<span class="string">":"</span>&lt;&lt;(*it).score&lt;&lt;endl;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span>(set&lt;Info&gt;::reverse_iterator rit = s.<span class="built_in">rbegin</span>(); rit != s.<span class="built_in">rend</span>(); ++rit){</span><br><span class="line">        cout&lt;&lt;(*rit).name&lt;&lt;<span class="string">":"</span>&lt;&lt;(*rit).score&lt;&lt;endl;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">abc:123.3</span></span><br><span class="line"><span class="comment">xyz:73.3</span></span><br><span class="line"><span class="comment">EDF:-23.53</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">EDF:-23.53</span></span><br><span class="line"><span class="comment">xyz:73.3</span></span><br><span class="line"><span class="comment">abc:123.3</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>multiset与set的不同之处就是key可以重复，以及erase（key）的时候会删除multiset里面所有的key并且返回删除的个数。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/633710b60c2df15398a3b83fb68f3e15.png" alt="2012041216090392"></p>
+<p><strong>map容器</strong></p>
+<p>map也是使用红黑树，他是一个键值对（key：value映射），遍历时依然默认按照key程序的方式遍历，同set。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b1fa15b64f27c3747fa7a90fbfb77f76.png" alt="2012041216093929"></p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span>{</span><br><span class="line">    map&lt;string,<span class="type">double</span>&gt; m;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//声明即插入</span></span><br><span class="line">    m[<span class="string">"li"</span>] = <span class="number">123.4</span>;</span><br><span class="line">    m[<span class="string">"wang"</span>] = <span class="number">23.1</span>;</span><br><span class="line">    m[<span class="string">"zhang"</span>] = <span class="number">-21.9</span>;</span><br><span class="line">    m[<span class="string">"abc"</span>] = <span class="number">12.1</span>;</span><br><span class="line">    <span class="keyword">for</span>(map&lt;string,<span class="type">double</span>&gt;::iterator it = m.<span class="built_in">begin</span>(); it != m.<span class="built_in">end</span>(); ++it){</span><br><span class="line">        <span class="comment">//first --&gt; key second --&gt; value</span></span><br><span class="line">        cout &lt;&lt; (*it).first &lt;&lt; <span class="string">":"</span> &lt;&lt; (*it).second &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*结果：</span></span><br><span class="line"><span class="comment">abc:12.1</span></span><br><span class="line"><span class="comment">li:123.4</span></span><br><span class="line"><span class="comment">wang:23.1</span></span><br><span class="line"><span class="comment">zhang:-21.9</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>multimap</p>
+<p>multimap由于允许有重复的元素，所以元素插入、删除、查找都与map不同。</p>
+<p>插入insert(pair&lt;a,b&gt;(value1,value2))，至于删除和查找，erase(key)会删除掉所有key的map，查找find(key)返回第一个key的迭代器</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line"></span><br><span class="line">    multimap&lt;string,<span class="type">double</span>&gt; m;</span><br><span class="line">    m.<span class="built_in">insert</span>(<span class="built_in">pair</span>&lt;string,<span class="type">double</span>&gt;(<span class="string">"Abc"</span>,<span class="number">123.2</span>));</span><br><span class="line">    m.<span class="built_in">insert</span>(<span class="built_in">pair</span>&lt;string,<span class="type">double</span>&gt;(<span class="string">"Abc"</span>,<span class="number">123.2</span>));</span><br><span class="line">    m.<span class="built_in">insert</span>(<span class="built_in">pair</span>&lt;string,<span class="type">double</span>&gt;(<span class="string">"xyz"</span>,<span class="number">-43.2</span>));</span><br><span class="line">    m.<span class="built_in">insert</span>(<span class="built_in">pair</span>&lt;string,<span class="type">double</span>&gt;(<span class="string">"dew"</span>,<span class="number">43.2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(multimap&lt;string,<span class="type">double</span>&gt;::iterator it = m.<span class="built_in">begin</span>(); it != m.<span class="built_in">end</span>(); ++it ){</span><br><span class="line">        cout &lt;&lt; (*it).first &lt;&lt; <span class="string">":"</span> &lt;&lt; (*it).second &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"><span class="comment">/*结果：</span></span><br><span class="line"><span class="comment">Abc:123.2</span></span><br><span class="line"><span class="comment">Abc:123.2</span></span><br><span class="line"><span class="comment">dew:43.2</span></span><br><span class="line"><span class="comment">xyz:-43.2</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>deque</strong></p>
+<p>deque和vector一样,采用线性表，与vector唯一不同的是，deque采用的分块的线性存储结构，每块大小一般为512字节，称为一个deque块，所有的deque块使用一个Map块进行管理，每个map数据项记录各个deque块的首地址，这样以来，deque块在头部和尾部都可已插入和删除元素，而不需要移动其它元素。</p>
+<p>使用push_back()方法在尾部插入元素，</p>
+<p>使用push_front()方法在首部插入元素，</p>
+<p>使用insert()方法在中间插入元素。</p>
+<p>一般来说，当考虑容器元素的内存分配策略和操作的性能时，deque相对vectore更有优势。</p>
+<p>（下面这个图，我感觉Map块就是一个list&lt; map&lt;deque名字，deque地址&gt; &gt;）</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b5561efca6530dcdbea1355895497ea5.png" alt="2012041216101177"></p>
+<p>deque的一些操作</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line">    deque&lt;<span class="type">int</span>&gt; d;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//尾部插入</span></span><br><span class="line">    d.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line">    d.<span class="built_in">push_back</span>(<span class="number">3</span>);</span><br><span class="line">    d.<span class="built_in">push_back</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//头部插入</span></span><br><span class="line">    d.<span class="built_in">push_front</span>(<span class="number">10</span>);</span><br><span class="line">    d.<span class="built_in">push_front</span>(<span class="number">-23</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//中间插入</span></span><br><span class="line">    d.<span class="built_in">insert</span>(d.<span class="built_in">begin</span>() + <span class="number">2</span>,<span class="number">9999</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//清空</span></span><br><span class="line">    d.<span class="built_in">clear</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//从头部删除元素</span></span><br><span class="line">    d.<span class="built_in">pop_front</span>();</span><br><span class="line">    <span class="comment">//从尾部删除元素</span></span><br><span class="line">    d.<span class="built_in">pop_back</span>();</span><br><span class="line">    <span class="comment">//中间删除</span></span><br><span class="line">    d.<span class="built_in">erase</span>(d.<span class="built_in">begin</span>()<span class="number">+2</span>,d.<span class="built_in">end</span>()<span class="number">-5</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//正方向遍历</span></span><br><span class="line">    <span class="keyword">for</span>(deque&lt;<span class="type">int</span>&gt;::iterator it = d.<span class="built_in">begin</span>(); it != d.<span class="built_in">end</span>(); ++it ){</span><br><span class="line">        cout &lt;&lt; (*it) &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//反方向遍历</span></span><br><span class="line">    <span class="keyword">for</span>(deque&lt;<span class="type">int</span>&gt;::reverse_iterator rit = d.<span class="built_in">rbegin</span>(); rit != d.<span class="built_in">rend</span>(); ++rit ){</span><br><span class="line">        cout &lt;&lt; (*rit) &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    }</span><br><span class="line">    cout &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>list（双向链表）</strong></p>
+<p>双向链表，常见的一种线性表，简单讲一下吧</p>
+<p>插入：push_back尾部，push_front头部，insert方法前往迭代器位置处插入元素，链表自动扩张，迭代器只能使用++–操作，不能用+n -n，因为元素不是物理相连的。</p>
+<p>遍历：iterator和reverse_iterator正反遍历</p>
+<p>删除：pop_front删除链表首元素；pop_back()删除链表尾部元素；erase（迭代器）删除迭代器位置的元素，注意只能使用++–到达想删除的位置；remove（key） 删除链表中所有key的元素，clear（）清空链表。</p>
+<p>查找：it = find(l.begin(),l.end(),key)</p>
+<p>排序：l.sort()</p>
+<p>删除连续重复元素:l.unique() 【2 8 1 1 1 5 1】 –&gt; 【 2 8 1 5 1】</p>
+<p>　<strong>bitset</strong></p>
+<p>很少用到的容器，随便过一下</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2eace2c84e6440a9dc1ccaee2a54ad4b.png" alt="2012041217242798"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/edbe4ac7a9fa1202f6faa885e6f9d6c7.png" alt="2012041217245190"></p>
+<p><strong>queue（栈）</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/dda11d6fb416c83f9c48c7f8e32b7942.png" alt="2012041217270972"></p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span>{</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">1</span>);</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">2</span>);</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">4</span>);</span><br><span class="line">    s.<span class="built_in">push</span>(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;<span class="string">"s.size():"</span>&lt;&lt;s.<span class="built_in">size</span>()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!s.<span class="built_in">empty</span>()){</span><br><span class="line">        cout&lt;&lt;s.<span class="built_in">top</span>()&lt;&lt;endl;</span><br><span class="line">        s.<span class="built_in">pop</span>();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*结果：</span></span><br><span class="line"><span class="comment">s.size():4</span></span><br><span class="line"><span class="comment">5</span></span><br><span class="line"><span class="comment">4</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">1</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>queue（队列）</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/449354df5844d1b333b992452a5da846.png" alt="2012041219211354"></p>
+<p>queue有入队push（插入）、出队pop（删除）、读取队首元素front、读取队尾元素back、empty，size这几种方法，不多说了</p>
+<p><strong>priority_queue(优先队列)</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/0bf0d58652fe4e99aa4c6b0a8d3db65b.png" alt="Snipaste_2022-03-02_00-26-26"></p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> </span>{</span><br><span class="line"></span><br><span class="line">    priority_queue&lt;<span class="type">int</span>&gt; pq;</span><br><span class="line"></span><br><span class="line">    pq.<span class="built_in">push</span>(<span class="number">1</span>);</span><br><span class="line">    pq.<span class="built_in">push</span>(<span class="number">3</span>);</span><br><span class="line">    pq.<span class="built_in">push</span>(<span class="number">2</span>);</span><br><span class="line">    pq.<span class="built_in">push</span>(<span class="number">8</span>);</span><br><span class="line">    pq.<span class="built_in">push</span>(<span class="number">9</span>);</span><br><span class="line">    pq.<span class="built_in">push</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;<span class="string">"pq.size:"</span>&lt;&lt;pq.<span class="built_in">size</span>()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(pq.<span class="built_in">empty</span>() != <span class="literal">true</span>){</span><br><span class="line">        cout &lt;&lt; pq.<span class="built_in">top</span>() &lt;&lt; endl;</span><br><span class="line">        pq.<span class="built_in">pop</span>();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">/*结果：</span></span><br><span class="line"><span class="comment">pq.size:6</span></span><br><span class="line"><span class="comment">9</span></span><br><span class="line"><span class="comment">8</span></span><br><span class="line"><span class="comment">3</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">1</span></span><br><span class="line"><span class="comment">0</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>重载操作符同set重载操作符</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://01petard.github.io/">伪音花火</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://01petard.github.io/2022/03/01/C++%E7%9A%84STL%E5%BA%93%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/">https://01petard.github.io/2022/03/01/C++的STL库常见函数/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://01petard.github.io" target="_blank">花火の红玉宫</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C++</a><a class="post-meta__tags" href="/tags/STL%E5%BA%93/">STL库</a></div><div class="post_share"><div class="addthis_inline_share_toolbox"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=null" async="async"></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/01petard.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">伪音花火</div><div class="author-info__description">每个人都有暗影的一面……</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">133</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">176</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/01Petard"><i class="fab fa-github"></i><span>我的GitHub主页</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/01Petard" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1520394133@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://space.bilibili.com/12764212" target="_blank" title="Bilibili"><i class="fab fa-bilibili"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/qq.jpg" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/wechat.jpg" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">新博客地址：https://01petard.github.io/blog-vue-vitepress/。ACG隐者，同人Fans，混沌善良；仓鼠党、“舟”谷人、数码迷；中左光谱。这是我的个人博客，也是我的赛博休息室。希望浏览这些东西能给你一些启示！</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/11/ElementUI%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B/" title="ElementUI实战教程"><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202411112221879.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ElementUI实战教程"></a><div class="content"><a class="title" href="/2024/11/11/ElementUI%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B/" title="ElementUI实战教程">ElementUI实战教程</a><time datetime="2024-11-11T14:17:00.000Z" title="发表于 2024-11-11 22:17:00">2024-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/05/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E5%B7%A5%E5%85%B7/" title="命令行系统信息工具"><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202411052242583.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="命令行系统信息工具"></a><div class="content"><a class="title" href="/2024/11/05/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E5%B7%A5%E5%85%B7/" title="命令行系统信息工具">命令行系统信息工具</a><time datetime="2024-11-05T14:40:00.000Z" title="发表于 2024-11-05 22:40:00">2024-11-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/04/%E6%96%B0%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E9%80%9A%E7%9F%A5/" title="新博客迁移通知"><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202411042256461.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="新博客迁移通知"></a><div class="content"><a class="title" href="/2024/11/04/%E6%96%B0%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E9%80%9A%E7%9F%A5/" title="新博客迁移通知">新博客迁移通知</a><time datetime="2024-11-04T14:48:00.000Z" title="发表于 2024-11-04 22:48:00">2024-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/03/MRK3399KJ%E4%B9%8B%E6%8A%98%E8%85%BECasaOS/" title="MRK3399KJ之简短折腾CasaOS"><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202411030528662.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MRK3399KJ之简短折腾CasaOS"></a><div class="content"><a class="title" href="/2024/11/03/MRK3399KJ%E4%B9%8B%E6%8A%98%E8%85%BECasaOS/" title="MRK3399KJ之简短折腾CasaOS">MRK3399KJ之简短折腾CasaOS</a><time datetime="2024-11-02T21:23:00.000Z" title="发表于 2024-11-03 05:23:00">2024-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/02/%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E5%85%A5OpenWrt%E7%B3%BB%E7%BB%9F%E6%90%9E%E6%9C%BA%E8%BF%87%E7%A8%8B/" title="路由器刷入OpenWrt系统搞机过程"><img src="https://cdn.jsdelivr.net/gh/01Petard/imageURL@main/img/202411022232229.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="路由器刷入OpenWrt系统搞机过程"></a><div class="content"><a class="title" href="/2024/11/02/%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E5%85%A5OpenWrt%E7%B3%BB%E7%BB%9F%E6%90%9E%E6%9C%BA%E8%BF%87%E7%A8%8B/" title="路由器刷入OpenWrt系统搞机过程">路由器刷入OpenWrt系统搞机过程</a><time datetime="2024-11-02T15:12:00.000Z" title="发表于 2024-11-02 23:12:00">2024-11-02</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2022 - 2024 By 伪音花火</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'http://1.94.147.176:38080/',
+      region: 'ap-shanghai',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'http://1.94.147.176:38080/',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'http://1.94.147.176:38080/',
+        region: 'ap-shanghai',
+        pageSize: 5,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 1/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/gallery/wallpaper-for-universal/"]):not([href="/gallery/wallpaper-for-display/"]):not([href="/gallery/wallpaper-for-mac/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":33,"vOffset":-40},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
